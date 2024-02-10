@@ -141,67 +141,37 @@ class _HomePageState extends State<HomePage>
 // パネル側のWidget
   Widget _panel(ScrollController sc) {
     return MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            // controller: sc,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 12.0,
+      context: context,
+      removeTop: true,
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        controller: sc,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 12.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: 30,
+                  height: 5,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(12.0))),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 30,
-                      height: 5,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12.0))),
-                    ),
-                  ],
-                ),
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('（株）あああああああああ'),
-                    Text('東京都千代田区1-1-1')
-                  ],
-                ),
-                _defaultTab()
-                // _customTab()
-              ],
-            )));
-  }
-
-  Widget _customTab() {
-    return Column(
-      children: [
-        TabBar(
-          controller: _tabController,
-          tabs: const [Tab(text: '1'), Tab(text: '2')],
-        ),
-        Center(
-          child: [
-            Text('first tab'),
-            Column(
-              children: [
-                Text('second tab'),
-                ...List.generate(10, (index) => Text('line: $index'))
               ],
             ),
-            Column(
-              children: [
-                Text('third tab'),
-                ...List.generate(20, (index) => Text('line: $index'))
-              ],
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[Text('（株）あああああああああ'), Text('東京都千代田区1-1-1')],
             ),
-          ][_tabController!.index],
+            _defaultTab()
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -211,11 +181,12 @@ class _HomePageState extends State<HomePage>
         itemCount: 20,
         itemBuilder: (context, index) {
           return Container(
-              height: 80,
-              color: colorList[index % colorList.length],
-              child: Text(
-                '$index',
-              ));
+            height: 80,
+            color: colorList[index % colorList.length],
+            child: Text(
+              '$index',
+            ),
+          );
         });
   }
 
@@ -238,33 +209,6 @@ class _HomePageState extends State<HomePage>
           )
         ],
       ),
-    );
-  }
-
-  Widget _button(String label, IconData icon, Color color) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.15),
-                  blurRadius: 8.0,
-                )
-              ]),
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        Text(label),
-      ],
     );
   }
 
