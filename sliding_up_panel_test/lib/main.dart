@@ -205,24 +205,34 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  Widget _dummyListView() {
+    List<Color> colorList = [Colors.cyan, Colors.deepOrange, Colors.indigo];
+    return ListView.builder(
+        itemCount: 20,
+        itemBuilder: (context, index) {
+          return Container(
+              height: 80,
+              color: colorList[index % colorList.length],
+              child: Text(
+                '$index',
+              ));
+        });
+  }
+
   Widget _defaultTab() {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          TabBar(
+          const TabBar(
             tabs: [Tab(text: '1'), Tab(text: '2')],
           ),
           SizedBox(
-            height: 100,
+            height: 1000,
             child: TabBarView(
               children: [
-                Center(
-                  child: Text('1'),
-                ),
-                Center(
-                  child: Text('2'),
-                )
+                Center(child: _dummyListView()),
+                Center(child: _dummyListView()),
               ],
             ),
           )
